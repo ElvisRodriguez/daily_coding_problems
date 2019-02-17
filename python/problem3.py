@@ -18,16 +18,24 @@ class Node:
 The tests in the main should pass.
 '''
 
+from collections import deque
 
 #Helper Method to traverse the Binary Tree in order.
 
-#Runtime: O(log(n)) where n is the number of nodes in the tree.
-def traverse(root, nodes=[]):
-    if root:
-        nodes = traverse(root.left, nodes)
-        nodes.append(root.val)
-        nodes = traverse(root.right, nodes)
-    return nodes
+#Runtime: O(n) where n is the number of nodes in the tree.
+def traverse(root):
+    if root is None:
+        return
+    nodes = deque(iterable=[root])
+    traversal = []
+    while len(nodes) > 0:
+        node = nodes.popleft()
+        traversal.append(node.val)
+        if node.left:
+            nodes.append(node.left)
+        if node.right:
+            nodes.append(node.right)
+    return traversal
 
 #Helper Method to build a Binary Tree from an array.
 
