@@ -26,6 +26,7 @@ def combinations(numeric_string, result=[], partion=1):
         result.append(numeric_string.split())
         return result
     else:
+        pass
 
 
 if __name__ == '__main__':
