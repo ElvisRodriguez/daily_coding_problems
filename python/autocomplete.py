@@ -13,16 +13,15 @@ speed up queries.
 '''
 
 
-def autocomplete(query_string, string_list):
-    for i in range(len(query_string)):
-        for string in string_list:
-            try:
-                if query_string[i] != string[i]:
-                    string_list.pop(string_list.index(string))
-            except IndexError:
-                string_list.pop(string_list.index(string))
-    return string_list
+def autocomplete(query, strings):
+    possible_words = []
+    for word in strings:
+        if query in word:
+            possible_words.append(word)
+    return possible_words
 
 
 if __name__ == '__main__':
-    print(autocomplete('de', ['dog', 'deer', 'deal']))
+    words = ['dog', 'deer', 'deal']
+    query = 'de'
+    print(autocomplete(query, words))

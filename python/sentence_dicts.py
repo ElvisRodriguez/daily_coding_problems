@@ -14,3 +14,18 @@ string "bedbathandbeyond", return either ['bed', 'bath', 'and', 'beyond] or
 ['bedbath', 'and', 'beyond'].
 '''
 # Substrings? Partial ones to be exact
+
+
+def create_sentence(words, string):
+    sentence = []
+    for word in words:
+        if word in string:
+            sentence.append(word)
+            string = string[len(word) - 1:]
+    return sentence
+
+
+if __name__ == '__main__':
+    words = ['bed', 'bath', 'bedbath', 'and', 'beyond']
+    string = 'bedbathandbeyond'
+    print(create_sentence(words, string))

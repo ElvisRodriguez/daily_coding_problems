@@ -13,7 +13,7 @@ def func():
 
 
 def job_scheduler(f, n):
-    time.sleep(n / 10)
+    time.sleep(n // 10)
     f()
 
 
