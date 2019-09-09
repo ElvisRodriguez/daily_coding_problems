@@ -14,6 +14,8 @@ If the stack is [1, 2, 3, 4], it should become [1, 4, 2, 3].
 Hint: Try working backwards from the end state.
 '''
 
+# Created a Stack and Queue class for readability
+
 
 class Stack:
     def __init__(self, container=[]):
@@ -42,9 +44,14 @@ class Queue:
     def empty(self):
         return len(self._container) == 0
 
+# Runtime: O(n^2) where n is the size of the stack.
+# Space Complexity: O(n) where n is the size of the stack.
+
 
 def interleave(stack, n):
     queue = Queue()
+    # We decrement n because we want to leave the first value of the
+    #  stack untouched, as it's already in it's interleaved position.
     n -= 1
     while n > 0:
         for i in range(n):

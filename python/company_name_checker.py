@@ -23,7 +23,7 @@ def check_for_companies():
                             companies[company] = [filename]
                         else:
                             companies[company].append(filename)
-                file.close()
+                        break
     for company in sorted(companies.keys()):
         print('Company: {company} ({number}):'.format(
             company=company, number=len(companies[company])
