@@ -12,22 +12,9 @@ allowed.
 '''
 
 
-def take_pieces(string, size):
-    result = []
-    string_list = list(string)
-    while string_list:
-        result.append(''.join(string_list[:size]))
-        string_list = string_list[size:]
-    return result
-
-
-def combinations(numeric_string, result=[], partion=1):
-    if partion == len(numeric_string):
-        result.append(numeric_string.split())
-        return result
-    else:
-        pass
+def generate_decoded_message(encoded_message):
+    pass
 
 
 if __name__ == '__main__':
-    print(take_pieces('11334', 5))
+    pass

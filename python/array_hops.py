@@ -24,7 +24,7 @@ def can_reach_the_end(array):
     steps = array[0]
     paths = collections.deque()
     # No need to explore the same path twice, we'll only check new paths.
-    # visited is a set so we can check membership in amortized O(1) time.
+    # visited is a set so we can check membership in O(1) time.
     visited = set()
     # For every step we can take, we create a path of the rest of the array.
     for i in range(steps):
