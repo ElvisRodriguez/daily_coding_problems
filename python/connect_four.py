@@ -13,6 +13,7 @@ Design and implement Connect 4.
 ROWS = 7
 COLS = 6
 
+
 class ConnectFour(object):
     def __init__(self):
         self.board = self.__create_board()
@@ -28,7 +29,7 @@ class ConnectFour(object):
         '''
         grid = []
         for _ in range(ROWS):
-            new_row = ['E' for _ in range(COLS)]
+            new_row = [' ' for _ in range(COLS)]
             grid.append(new_row)
         return grid
 
@@ -43,18 +44,20 @@ class ConnectFour(object):
         '''
         Updates board at given position with disc_color
         '''
-        if disc_color not in self.possible_pays:
+        if disc_color not in self.possible_plays:
             print('Must insert either a red or black disc')
             return False
         if column not in range(COLS):
             print('Invalid column')
             return False
-        positon = [-1, column]
-        for i in range(len(self.board)):
+        position = [-1, column]
+        for i in range(ROWS):
             row = self.board[i]
-            if row[column] != 'E':
+            if row[column] != ' ':
                 position[0] = i - 1
                 break
+            if i == ROWS - 1 and row[column] == ' ':
+                position[0] = ROWS - 1
         if position[0] < 0:
             print('Column {col} is full'.format(col=column))
             return False
@@ -64,8 +67,8 @@ class ConnectFour(object):
         return True
 
     def __check_for_diagonal_winner(self):
-        south_east_positions = [(3,0), (2,0), (1,0), (0,0), (0,1), (0,2)]
-        north_east_positions = [(3,0), (4,0), (5,0), (6,0), (6,1), (6,2)]
+        south_east_positions = [(3, 0), (2, 0), (1, 0), (0, 0), (0, 1), (0, 2)]
+        north_east_positions = [(3, 0), (4, 0), (5, 0), (6, 0), (6, 1), (6, 2)]
         for position in south_east_positions:
             cells = []
             i, j = position
@@ -90,7 +93,6 @@ class ConnectFour(object):
                 return 'BLACK HAS WON'
         return 'NO WINNER'
 
-
     def check_game_state(self):
         # Check for a horizontal winner.
         for row in self.board:
@@ -106,11 +108,12 @@ class ConnectFour(object):
             if self.winner_black in segment:
                 return 'BLACK HAS WON'
         outcome = self.__check_for_diagonal_winner()
-        if outcome == 'NO WINNER'  and self.current_plays == self.max_plays:
+        if outcome == 'NO WINNER' and self.current_plays == self.max_plays:
             return 'DRAW'
         if outcome == 'NO WINNER':
             return 'GAME NOT OVER'
         return outcome
+
 
 def start_game():
     game = ConnectFour()
@@ -122,18 +125,19 @@ def start_game():
         game.print_board()
         if red_player_turn:
             print('Red\'s turn')
-            column = str(input('Enter a column to place disc: '))
+            column = int(input('Enter a column to place disc: '))
             if game.insert_disc(disc_color=red, column=column):
                 red_player_turn = not red_player_turn
         else:
             print('Black\'s turn')
-            column = str(input('Enter a column to place disc: '))
-            if game.insert_disc(disc_colot=black, column=column):
+            column = int(input('Enter a column to place disc: '))
+            if game.insert_disc(disc_color=black, column=column):
                 red_player_turn = not red_player_turn
         print('\n\tChecking game state...\n')
         game_state = game.check_game_state()
         if game_state in ['RED HAS WON', 'BLACK HAS WON', 'DRAW']:
             print(game_state)
+            game.print_board()
             break
 
 

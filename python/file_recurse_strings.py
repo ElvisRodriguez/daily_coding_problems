@@ -43,3 +43,38 @@ The name of a file contains at least a period and an extension.
 
 The name of a directory or sub-directory will not contain a period.
 '''
+
+
+def longest_absolute_path(file_system_string):
+    raw_modules = file_system_string.split('\n')
+    root_directory = raw_modules[0]
+    raw_modules = raw_modules[1:]
+    paths = []
+    path = [root_directory]
+    current_level = 0
+    while raw_modules:
+        module = raw_modules.pop(0)
+        level = module.count('\t')
+        stripped_module = module.strip('\t')
+        if level > current_level:
+            path.append(stripped_module)
+            paths.append('/'.join(path))
+        elif level == current_level:
+            path.pop(-1)
+            path.append(stripped_module)
+            paths.append('/'.join(path))
+        else:
+            for _ in range(current_level - level + 1):
+                path.pop(-1)
+            path.append(stripped_module)
+            paths.append('/'.join(path))
+        current_level = level
+    paths = [len(valid_path) for valid_path in paths if '.' in valid_path]
+    if len(paths) == 0:
+        return 0
+    return max(paths)
+
+
+if __name__ == '__main__':
+    file_system_string = "dir\n\tsubdir1\n\t\tfile1.ext\n\t\tsubsubdir1\n\tsubdir2\n\t\tsubsubdir2\n\t\t\tfile2.ext"
+    print(longest_absolute_path(file_system_string))

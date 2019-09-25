@@ -11,10 +11,12 @@ For example, given "(()", you could return "(())". Given "))()(",
  you could return "()()()()".
 '''
 
-# Runtime: O(n) where n is the size of the input string.
-
 
 def fix_parens(string):
+    '''
+    Time Complexity: O(n) where n is the size of string
+    Space Complexity: O(n)
+    '''
     index = 0
     # Keep track of the current parentheses substring.
     left_parens = []

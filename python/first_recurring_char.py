@@ -10,17 +10,16 @@ Given the string "abcdef", return null.
 
 
 def first_recurring(string):
-    letters = {}
-    is_recurring = False
+    '''
+    Time Complexity: O(n)
+    Space Complexity: O(n)
+    '''
+    letters = set()
     for char in string:
-        try:
-            letters[char] += 1
-            is_recurring = True
+        if char in letters:
             return char
-        except KeyError:
-            letters[char] = 1
-    if not is_recurring:
-        return None
+        letters.add(char)
+    return None
 
 
 if __name__ == '__main__':
