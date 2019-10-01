@@ -10,7 +10,7 @@ For example, given the array [5, 1, 3, 5, 2, 3, 4, 1],
 
 
 def is_distinct(subarray):
-    return len(subarray) == len(list(set(subarray)))
+    return len(subarray) == len(set(subarray))
 
 
 def longest_distinct_subarray(array):
@@ -21,13 +21,11 @@ def longest_distinct_subarray(array):
         subarray = array[start:end]
         if is_distinct(subarray) and len(subarray) > len(longest_subarray):
             longest_subarray = subarray
-        if not is_distinct(subarray):
-            while not is_distinct(subarray):
-                start += 1
-                if start == end:
-                    subarray = array[end]
-                    break
-                subarray = array[start:end]
+        while not is_distinct(subarray):
+            start += 1
+            if start == end:
+                break
+            subarray = array[start:end]
         end += 1
     return len(longest_subarray)
 
